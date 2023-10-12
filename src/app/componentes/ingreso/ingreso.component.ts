@@ -37,6 +37,16 @@ export class IngresoComponent {
         // Redirigir al usuario a la página de perfil
         this.router.navigate(['/perfil']);
 
+        // Esperar 2 segundos antes de recargar la página
+        this.router.events.subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            setTimeout(() => {
+              // Recargar la página después de 2 segundos
+              window.location.reload();
+              this.usuarioService.setPerfilData(this.perfilData);
+            }, 500); // 2 segundos (ajusta el tiempo según tus necesidades)
+          }
+        });
       },
       error: (error: any) => {
         // Manejar errores de inicio de sesión
